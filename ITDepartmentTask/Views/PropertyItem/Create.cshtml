@@ -1,0 +1,16 @@
+﻿@model PropertyItemFormViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Property Item</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="PropertyDescription"></label>
+        <input asp-for="PropertyDescription" class="form-control" />
+        <span asp-validation-for="PropertyDescription" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

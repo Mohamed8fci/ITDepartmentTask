@@ -1,0 +1,38 @@
+﻿@model ITDepartmentTask.pl.ViewModels.DeviceCategoryFormViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Device Category</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="CategoryName"></label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+    <h4>Property Items</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PropertyItems[0].PropertyDescription)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.PropertyItems.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="PropertyItems[i].PropertyDescription" class="form-control" />
+                        <span asp-validation-for="PropertyItems[i].PropertyDescription" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="submit" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-light">back To Index</a>
+</form>

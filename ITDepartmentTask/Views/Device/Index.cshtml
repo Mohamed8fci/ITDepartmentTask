@@ -1,0 +1,52 @@
+﻿@model List<Device>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Devices</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="mt-4 table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+               DeviceName
+            </th>
+            <th>
+               DeviceCategory
+            </th>
+            <th>
+                AcquisitionDate
+            </th>
+            <th>
+               Memo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceCategory.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcquisitionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Memo)
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+

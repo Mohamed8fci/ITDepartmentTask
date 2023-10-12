@@ -1,0 +1,59 @@
+﻿@model DeviceFormViewModel
+
+@{
+    var selectedDeviceCategory = Model.DeviceCategories.SingleOrDefault(c => c.ID == Model.DeviceCategoryId);
+
+    ViewData["Title"] = "Create";
+}
+
+
+<h2>Create Device</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="DeviceName"></label>
+        <input asp-for="DeviceName" class="form-control" />
+        <span asp-validation-for="DeviceName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DeviceCategoryId"></label>
+        <select asp-for="DeviceCategoryId" asp-items="@(new SelectList(Model.DeviceCategories, "ID", "CategoryName"))" class="form-control"></select>
+        <span asp-validation-for="DeviceCategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AcquisitionDate"></label>
+        <input asp-for="AcquisitionDate" class="form-control" />
+        <span asp-validation-for="AcquisitionDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Memo"></label>
+        <textarea asp-for="Memo" class="form-control"></textarea>
+        <span asp-validation-for="Memo" class="text-danger"></span>
+    </div>
+    @if (Model.DeviceCategories != null && Model.DeviceCategoryId != null)
+    {
+        var deviceCategory = Model.DeviceCategories.FirstOrDefault(c => c.ID == Model.DeviceCategoryId);
+        if (deviceCategory != null && deviceCategory.PropertyItems != null)
+        {
+            foreach (var propertyItem in deviceCategory.PropertyItems)
+            {
+                <div class="form-group">
+                    <label>@propertyItem.PropertyDescription</label>
+                    <input asp-for="PropertyValues" value="@propertyItem != null ? (Model.PropertyValues != null && propertyItem.ID - 1 < Model.PropertyValues.Count ? Model.PropertyValues[propertyItem.ID - 1] : null) : null" class="form-control" />
+                </div>
+            }
+        }
+        else
+        {
+            <p>Selected device category has no properties defined.</p>
+        }
+    }
+    else
+    {
+        <p>Please select a valid device category.</p>
+    }
+
+
+    <input type="submit" value="submit" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-light">back To Index</a>
+</form>
